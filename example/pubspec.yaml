@@ -30,7 +30,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  xterm: ^3.0.6-alpha
+  xterm:
+    path: ../../xterm.dart
 
   flutter_pty:
     # When depending on this package from a real application you should use:
