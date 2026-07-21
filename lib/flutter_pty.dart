@@ -55,7 +55,7 @@ class Pty {
       'DISPLAY',
       'LC_TYPE',
       'HOME',
-      'PATH'
+      'PATH',
     };
 
     for (var entry in Platform.environment.entries) {
@@ -165,8 +165,8 @@ class Pty {
   }
 
   /// Resize the pseudo-terminal.
-  void resize(int rows, int cols) {
-    _bindings.pty_resize(_handle, rows, cols);
+  void resize(int rows, int cols, [int pixelWidth = 0, int pixelHeight = 0]) {
+    _bindings.pty_resize(_handle, rows, cols, pixelWidth, pixelHeight);
   }
 
   /// Kill the process running in the pseudo-terminal.

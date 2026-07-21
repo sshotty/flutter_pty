@@ -449,8 +449,11 @@ FFI_PLUGIN_EXPORT void pty_ack_read(PtyHandle *handle)
     }
 }
 
-FFI_PLUGIN_EXPORT int pty_resize(PtyHandle *handle, int rows, int cols)
+FFI_PLUGIN_EXPORT int pty_resize(PtyHandle *handle, int rows, int cols,
+                                 int pixel_width, int pixel_height)
 {
+    (void)pixel_width;
+    (void)pixel_height;
     COORD size;
 
     size.X = cols;

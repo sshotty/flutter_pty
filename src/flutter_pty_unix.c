@@ -155,7 +155,7 @@ static void set_environment(char **environment)
 
 FFI_PLUGIN_EXPORT PtyHandle *pty_create(PtyOptions *options)
 {
-    struct winsize ws;
+    struct winsize ws = {0};
 
     ws.ws_row = options->rows;
     ws.ws_col = options->cols;
@@ -216,12 +216,15 @@ FFI_PLUGIN_EXPORT void pty_ack_read(PtyHandle *handle)
     }
 }
 
-FFI_PLUGIN_EXPORT int pty_resize(PtyHandle *handle, int rows, int cols)
+FFI_PLUGIN_EXPORT int pty_resize(PtyHandle *handle, int rows, int cols,
+                                 int pixel_width, int pixel_height)
 {
-    struct winsize ws;
+    struct winsize ws = {0};
 
     ws.ws_row = rows;
     ws.ws_col = cols;
+    ws.ws_xpixel = pixel_width;
+    ws.ws_ypixel = pixel_height;
 
     return ioctl(handle->ptm, TIOCSWINSZ, &ws);
 }

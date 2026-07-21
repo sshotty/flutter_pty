@@ -28,13 +28,17 @@ class FlutterPtyNativeBindings {
     ffi.Pointer<PtyHandle> handle,
     ffi.Pointer<ffi.Char> buffer,
     int length,
-  ) =>
-      _ptyWrite(handle, buffer, length);
+  ) => _ptyWrite(handle, buffer, length);
 
   void pty_ack_read(ffi.Pointer<PtyHandle> handle) => _ptyAckRead(handle);
 
-  int pty_resize(ffi.Pointer<PtyHandle> handle, int rows, int cols) =>
-      _ptyResize(handle, rows, cols);
+  int pty_resize(
+    ffi.Pointer<PtyHandle> handle,
+    int rows,
+    int cols,
+    int pixelWidth,
+    int pixelHeight,
+  ) => _ptyResize(handle, rows, cols, pixelWidth, pixelHeight);
 
   int pty_getpid(ffi.Pointer<PtyHandle> handle) => _ptyGetPid(handle);
 
@@ -52,23 +56,27 @@ external int _dartInitializeApiDL(ffi.Pointer<ffi.Void> data);
 external ffi.Pointer<PtyHandle> _ptyCreate(ffi.Pointer<PtyOptions> options);
 
 @ffi.Native<
-    ffi.Void Function(ffi.Pointer<PtyHandle>, ffi.Pointer<ffi.Char>,
-        ffi.Int)>(symbol: 'pty_write')
+  ffi.Void Function(ffi.Pointer<PtyHandle>, ffi.Pointer<ffi.Char>, ffi.Int)
+>(symbol: 'pty_write')
 external void _ptyWrite(
   ffi.Pointer<PtyHandle> handle,
   ffi.Pointer<ffi.Char> buffer,
   int length,
 );
 
-@ffi.Native<ffi.Void Function(ffi.Pointer<PtyHandle>)>(
-  symbol: 'pty_ack_read',
-)
+@ffi.Native<ffi.Void Function(ffi.Pointer<PtyHandle>)>(symbol: 'pty_ack_read')
 external void _ptyAckRead(ffi.Pointer<PtyHandle> handle);
 
-@ffi.Native<ffi.Int Function(ffi.Pointer<PtyHandle>, ffi.Int, ffi.Int)>(
-  symbol: 'pty_resize',
-)
-external int _ptyResize(ffi.Pointer<PtyHandle> handle, int rows, int cols);
+@ffi.Native<
+  ffi.Int Function(ffi.Pointer<PtyHandle>, ffi.Int, ffi.Int, ffi.Int, ffi.Int)
+>(symbol: 'pty_resize')
+external int _ptyResize(
+  ffi.Pointer<PtyHandle> handle,
+  int rows,
+  int cols,
+  int pixelWidth,
+  int pixelHeight,
+);
 
 @ffi.Native<ffi.Int Function(ffi.Pointer<PtyHandle>)>(symbol: 'pty_getpid')
 external int _ptyGetPid(ffi.Pointer<PtyHandle> handle);

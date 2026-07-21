@@ -424,20 +424,24 @@ class FlutterPtyBindings {
     ffi.Pointer<PtyHandle> handle,
     int rows,
     int cols,
+    int pixelWidth,
+    int pixelHeight,
   ) {
     return _pty_resize(
       handle,
       rows,
       cols,
+      pixelWidth,
+      pixelHeight,
     );
   }
 
   late final _pty_resizePtr = _lookup<
       ffi.NativeFunction<
-          ffi.Int Function(
-              ffi.Pointer<PtyHandle>, ffi.Int, ffi.Int)>>('pty_resize');
-  late final _pty_resize = _pty_resizePtr
-      .asFunction<int Function(ffi.Pointer<PtyHandle>, int, int)>();
+          ffi.Int Function(ffi.Pointer<PtyHandle>, ffi.Int, ffi.Int, ffi.Int,
+              ffi.Int)>>('pty_resize');
+  late final _pty_resize = _pty_resizePtr.asFunction<
+      int Function(ffi.Pointer<PtyHandle>, int, int, int, int)>();
 
   int pty_getpid(
     ffi.Pointer<PtyHandle> handle,
