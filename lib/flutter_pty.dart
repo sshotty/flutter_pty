@@ -5,24 +5,11 @@ import 'dart:isolate';
 import 'dart:typed_data';
 
 import 'package:ffi/ffi.dart';
-import 'package:flutter_pty/src/flutter_pty_bindings_generated.dart';
+import 'package:flutter_pty/src/flutter_pty_bindings_generated.dart'
+    show PtyHandle, PtyOptions;
+import 'package:flutter_pty/src/flutter_pty_native_bindings.dart';
 
-const _libName = 'flutter_pty';
-
-final DynamicLibrary _dylib = () {
-  if (Platform.isMacOS || Platform.isIOS) {
-    return DynamicLibrary.open('$_libName.framework/$_libName');
-  }
-  if (Platform.isAndroid || Platform.isLinux) {
-    return DynamicLibrary.open('lib$_libName.so');
-  }
-  if (Platform.isWindows) {
-    return DynamicLibrary.open('$_libName.dll');
-  }
-  throw UnsupportedError('Unknown platform: ${Platform.operatingSystem}');
-}();
-
-final _bindings = FlutterPtyBindings(_dylib);
+final _bindings = FlutterPtyNativeBindings();
 
 final _init = () {
   return _bindings.Dart_InitializeApiDL(NativeApi.initializeApiDLData);
