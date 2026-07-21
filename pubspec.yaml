@@ -1,17 +1,21 @@
 name: flutter_pty
 description: Pty for Flutter. Provides the ability to create processes with pseudo terminal file descriptors.
 version: 0.4.2
+resolution: workspace
 homepage: https://github.com/TerminalStudio/flutter_pty
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.10.0 <4.0.0"
   flutter: ">=2.12.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
+  code_assets: ^1.2.1
   ffi: ^2.0.1
+  hooks: ^2.0.2
+  native_toolchain_c: ^0.19.2
 
 dev_dependencies:
   flutter_test:
@@ -19,7 +23,7 @@ dev_dependencies:
 
   ffigen: ^8.0.0
 
-  flutter_lints: ^2.0.1
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
