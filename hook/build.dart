@@ -23,9 +23,10 @@ Future<void> _build(BuildInput input, BuildOutputBuilder output) async {
   _addNativeDependencies(input, output);
 
   final targetOS = input.config.code.targetOS;
-  final linkMode = targetOS == OS.iOS
-      ? LinkModePreference.static
-      : LinkModePreference.dynamic;
+  // Honor the runner's link-mode preference directly. Producing a static
+  // asset when the build input requests dynamic (the iOS/Flutter default) is
+  // rejected by the native-assets linker, so never force static here.
+  final linkMode = input.config.code.linkModePreference;
   await CBuilder.library(
     // Do not collide with the legacy plugin's libflutter_pty binary when a
     // Flutter application builds both integration paths.
